@@ -20,3 +20,11 @@ allprojects {
         }
     }
 }
+
+tasks {
+    register("stage") {
+        subprojects.forEach {
+            dependsOn("${it.name}:installDist")
+        }
+    }
+}

@@ -4,6 +4,7 @@ name: user-directory
     paths:
     - user-directory/**
     - common/**
+    - "*.kts"
     - .monopolis/config.yml
     - .github/workflows/user-directory-build.yml
     - .github/workflows/user-directory-deploy.yml

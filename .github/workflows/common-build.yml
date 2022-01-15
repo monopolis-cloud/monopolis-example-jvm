@@ -3,6 +3,7 @@ name: common
   push:
     paths:
     - common/**
+    - "*.kts"
     - .monopolis/config.yml
     - .github/workflows/app1-build.yml
 jobs:

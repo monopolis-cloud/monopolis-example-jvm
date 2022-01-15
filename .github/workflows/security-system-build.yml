@@ -4,6 +4,7 @@ name: security-system
     paths:
     - security-system/**
     - common/**
+    - "*.kts"
     - .monopolis/config.yml
     - .github/workflows/security-system-build.yml
     - .github/workflows/security-system-deploy.yml

@@ -3,6 +3,7 @@ monodes:
   common:
     triggers:
       - common/**
+      - "*.kts"
   .service:
     deployable: true
     extends:

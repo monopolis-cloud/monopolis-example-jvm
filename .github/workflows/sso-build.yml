@@ -4,6 +4,7 @@ name: sso
     paths:
     - sso/**
     - common/**
+    - "*.kts"
     - .monopolis/config.yml
     - .github/workflows/sso-build.yml
     - .github/workflows/sso-deploy.yml
