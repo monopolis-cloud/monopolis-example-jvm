@@ -14,5 +14,5 @@ import java.time.Clock
 fun Diagnostic(clock: Clock): RoutingHttpHandler = "/internal" bind routes(
     Ping(),
     Uptime(clock),
-    "/" bind GET to { Response(OK).body("Diagnostic module. visit: /ping or /uptime") }
+    "/" bind GET to { Response(OK).body("Diagnostic module. visit: /internal/ping or /internal/uptime") }
 )
