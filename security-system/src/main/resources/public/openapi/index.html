@@ -38,7 +38,7 @@
     <script>
     window.onload = function() {
       const ui = SwaggerUIBundle({
-        url: "http://localhost:9000/api/api-docs",
+        url: "https://monopolis-security-system.herokuapp.com/api/api-docs",
         dom_id: '#swagger-ui',
         deepLinking: true,
         presets: [
@@ -48,7 +48,7 @@
         plugins: [
           SwaggerUIBundle.plugins.DownloadUrl
         ],
-        oauth2RedirectUrl:"http://localhost:9000/openapi/oauth2-redirect.html",
+        oauth2RedirectUrl:"https://monopolis-security-system.herokuapp.com/openapi/oauth2-redirect.html",
         layout: "StandaloneLayout"
       });
 
