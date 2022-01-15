@@ -5,7 +5,8 @@ name: user-directory
     - user-directory/**
     - common/**
     - .monopolis/config.yml
-    - .github/workflows/app1-build.yml
+    - .github/workflows/user-directory-build.yml
+    - .github/workflows/user-directory-deploy.yml
 jobs:
   Build:
     needs: [

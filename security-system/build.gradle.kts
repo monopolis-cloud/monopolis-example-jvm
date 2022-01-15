@@ -15,3 +15,7 @@ dependencies {
     testApi(project(":entry-logger"))
     testApi(project(":sso"))
 }
+
+application {
+    mainClass.set("verysecuresystems.SecuritySystemServerKt")
+}

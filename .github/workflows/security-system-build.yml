@@ -5,7 +5,8 @@ name: security-system
     - security-system/**
     - common/**
     - .monopolis/config.yml
-    - .github/workflows/app1-build.yml
+    - .github/workflows/security-system-build.yml
+    - .github/workflows/security-system-deploy.yml
 jobs:
   Build:
     needs: [

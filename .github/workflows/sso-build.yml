@@ -5,7 +5,8 @@ name: sso
     - sso/**
     - common/**
     - .monopolis/config.yml
-    - .github/workflows/app1-build.yml
+    - .github/workflows/sso-build.yml
+    - .github/workflows/sso-deploy.yml
 jobs:
   Build:
     needs: [

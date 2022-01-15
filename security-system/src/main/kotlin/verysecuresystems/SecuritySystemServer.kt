@@ -2,7 +2,9 @@ package verysecuresystems
 
 import org.http4k.client.OkHttp
 import org.http4k.cloudnative.env.Environment
+import org.http4k.cloudnative.env.Environment.Companion.ENV
 import org.http4k.cloudnative.env.EnvironmentKey
+import org.http4k.core.with
 import org.http4k.events.AutoMarshallingEvents
 import org.http4k.format.Jackson
 import org.http4k.lens.int
@@ -36,6 +38,6 @@ object SecuritySystemSettings {
     val ENTRY_LOGGER_URL = EnvironmentKey.uri().required("ENTRY_LOGGER_URL")
 }
 
-fun main() {
-    SecuritySystemServer(Environment.ENV).start()
+fun main(args: Array<String>) {
+    SecuritySystemServer(ENV.with(PORT of args.port)).start()
 }

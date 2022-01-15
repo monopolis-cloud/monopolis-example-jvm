@@ -5,6 +5,7 @@ import org.http4k.cloudnative.env.EnvironmentKey
 import org.http4k.core.Credentials
 import org.http4k.core.Uri
 import org.http4k.core.extend
+import org.http4k.core.with
 import org.http4k.lens.int
 import org.http4k.lens.uri
 import org.http4k.server.Undertow
@@ -31,6 +32,6 @@ object SSOSettings {
     val SECURITY_SERVER_URL = EnvironmentKey.uri().required("SECURITY_SERVER_URL")
 }
 
-fun main() {
-    SSOServer(Environment.ENV).start()
+fun main(args: Array<String>) {
+    SSOServer(Environment.ENV.with(PORT of args.port)).start()
 }

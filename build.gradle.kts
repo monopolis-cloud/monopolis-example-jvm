@@ -1,6 +1,7 @@
 plugins {
     base
     kotlin("jvm") version "1.6.10" apply false
+    application
 }
 
 allprojects {
@@ -10,6 +11,7 @@ allprojects {
 
     apply(plugin = "java")
     apply(plugin = "kotlin")
+    apply(plugin = "application")
 
     tasks {
         named<Test>("test") {

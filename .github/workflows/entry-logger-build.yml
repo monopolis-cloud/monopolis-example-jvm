@@ -5,7 +5,8 @@ name: entry-logger
     - entry-logger/**
     - common/**
     - .monopolis/config.yml
-    - .github/workflows/app1-build.yml
+    - .github/workflows/entry-logger-build.yml
+    - .github/workflows/entry-logger-deploy.yml
 jobs:
   Build:
     needs: [

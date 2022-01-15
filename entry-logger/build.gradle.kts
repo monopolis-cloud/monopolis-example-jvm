@@ -9,5 +9,8 @@ dependencies {
     testApi(Http4k.testing.chaos)
     testApi(Http4k.testing.approval)
     testApi(Http4k.testing.webdriver)
+}
 
+application {
+    mainClass.set("verysecuresystems.EntryLoggerServerKt")
 }
