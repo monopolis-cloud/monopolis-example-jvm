@@ -7,5 +7,5 @@ dependencies {
 }
 
 application {
-    mainClass.set("verysecuresystems.SSOServerKt")
+    mainClass.set("verysecuresystems.UserDirectoryServerKt")
 }
