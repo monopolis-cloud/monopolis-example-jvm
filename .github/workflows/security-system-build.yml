@@ -4,10 +4,16 @@ name: security-system
     paths:
     - security-system/**
     - common/**
+    - .monopolis/config.yml
+    - .github/workflows/app1-build.yml
 jobs:
   Build:
     needs: [
       ]
     steps:
-    - run: echo Building security-system
+      - uses: actions/checkout@v2
+      - uses: actions/setup-java@v1
+        with:
+          java-version: 11
+      - run: ./gradlew :security-system:check
     runs-on: ubuntu-latest
