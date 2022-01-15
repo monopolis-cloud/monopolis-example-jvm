@@ -31,6 +31,7 @@ monodes:
       - .service
     triggers:
       - user-directory/**
+
 environments:
   production:
     deploy: auto
