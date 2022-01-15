@@ -1,0 +1,13 @@
+name: security-system
+'on':
+  push:
+    paths:
+    - security-system/**
+    - common/**
+jobs:
+  Build:
+    needs: [
+      ]
+    steps:
+    - run: echo Building security-system
+    runs-on: ubuntu-latest

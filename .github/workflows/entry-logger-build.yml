@@ -1,0 +1,13 @@
+name: entry-logger
+'on':
+  push:
+    paths:
+    - entry-logger/**
+    - common/**
+jobs:
+  Build:
+    needs: [
+      ]
+    steps:
+    - run: echo Building entry-logger
+    runs-on: ubuntu-latest

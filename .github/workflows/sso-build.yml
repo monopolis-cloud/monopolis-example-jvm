@@ -1,0 +1,13 @@
+name: sso
+'on':
+  push:
+    paths:
+    - sso/**
+    - common/**
+jobs:
+  Build:
+    needs: [
+      ]
+    steps:
+    - run: echo Building sso
+    runs-on: ubuntu-latest

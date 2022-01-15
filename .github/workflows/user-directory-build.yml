@@ -1,0 +1,13 @@
+name: user-directory
+'on':
+  push:
+    paths:
+    - user-directory/**
+    - common/**
+jobs:
+  Build:
+    needs: [
+      ]
+    steps:
+    - run: echo Building user-directory
+    runs-on: ubuntu-latest

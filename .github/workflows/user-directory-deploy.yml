@@ -1,0 +1,54 @@
+name: user-directory-deploy
+'on':
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: Environment to deploy user-directory to.
+        required: true
+        type: environment
+      user-directory-sha:
+        description: Version of user-directory to deploy.
+        required: true
+        type: string
+      deployment-status-url:
+        description: URL for status updates to be sent to.
+        required: false
+        type: string
+jobs:
+  Start:
+    environment: ${{ github.event.inputs.environment }}
+    needs: [
+      ]
+    steps:
+    - uses: rsotnychenko/deployment-status-update@0.2.0
+      name: Report deploy as in_progress
+      with:
+        run_id: ${{ github.run_id }}
+        status: in_progress
+        deployment_status_url: ${{ github.event.inputs.deployment-status-url }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      if: ${{ github.event.inputs.deployment-status-url != null }}
+    runs-on: ubuntu-latest
+  Deploy-user-directory:
+    needs:
+    - Start
+    steps:
+    - run: echo deploy user-directory here
+    runs-on: ubuntu-latest
+    if: ${{ always()  }}
+  End:
+    needs:
+    - Deploy-user-directory
+    steps:
+    - uses: rsotnychenko/deployment-status-update@0.2.0
+      name: Report deploy as ${{ needs.Deploy-user-directory.result }}
+      with:
+        run_id: ${{ github.run_id }}
+        status: ${{ needs.Deploy-user-directory.result }}
+        deployment_status_url: ${{ github.event.inputs.deployment-status-url }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      if: ${{ github.event.inputs.deployment-status-url != null }}
+    runs-on: ubuntu-latest
+    if: ${{ always() }}

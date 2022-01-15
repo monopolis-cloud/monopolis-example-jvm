@@ -1,0 +1,12 @@
+name: common
+'on':
+  push:
+    paths:
+    - common/**
+jobs:
+  Build:
+    needs: [
+      ]
+    steps:
+    - run: echo Building common
+    runs-on: ubuntu-latest

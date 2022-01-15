@@ -1,0 +1,33 @@
+version: 1.0
+monodes:
+  common:
+    triggers:
+      - common/**
+  .service:
+    deployable: true
+    extends:
+      - common
+  entry-logger:
+    extends:
+      - .service
+    triggers:
+      - entry-logger/**
+  security-system:
+    extends:
+      - .service
+    triggers:
+      - security-system/**
+  sso:
+    extends:
+      - .service
+    triggers:
+      - sso/**
+  user-directory:
+    extends:
+      - .service
+    triggers:
+      - user-directory/**
+environments:
+  production:
+    deploy: auto
+    rollback: auto
