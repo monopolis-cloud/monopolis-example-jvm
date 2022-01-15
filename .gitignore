@@ -1,0 +1,15 @@
+.idea/
+*.iml
+.gradle/
+build/
+.DS_Store
+classes/
+/site/
+out/
+store/
+node_modules/
+intellij-settings/
+**/*.actual
+local.properties
+local.properties.bak
+secrets_*.env
