@@ -1,0 +1,314 @@
+{
+  "info": {
+    "title": "Security Server API",
+    "version": "v1.0",
+    "description": "This API is secured by an OAuth auth code. Simply click 'Authorize' to start the flow."
+  },
+  "tags": [
+  ],
+  "servers": [
+    {
+      "url": "/"
+    }
+  ],
+  "paths": {
+    "/api/bye": {
+      "post": {
+        "summary": "User exits the building",
+        "tags": [
+          "/api"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "username",
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Accepted",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "processing"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Message"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "User is not inside building"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Message"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Incorrect key",
+            "content": {
+            }
+          }
+        },
+        "security": [
+          {
+            "oauthSecurityAuthCode": [
+            ]
+          }
+        ],
+        "operationId": "postApiBye",
+        "deprecated": false
+      }
+    },
+    "/api/knock": {
+      "post": {
+        "summary": "User enters the building",
+        "tags": [
+          "/api"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "username",
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Accepted",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Access granted"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Message"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Unknown user"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Message"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "User is already inside building"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Message"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Incorrect key",
+            "content": {
+            }
+          }
+        },
+        "security": [
+          {
+            "oauthSecurityAuthCode": [
+            ]
+          }
+        ],
+        "operationId": "postApiKnock",
+        "deprecated": false
+      }
+    },
+    "/api/whoIsThere": {
+      "get": {
+        "summary": "List current users in the building",
+        "tags": [
+          "/api"
+        ],
+        "parameters": [
+        ],
+        "responses": {
+          "200": {
+            "description": "Inhabitant list",
+            "content": {
+              "application/json": {
+                "example": [
+                  {
+                    "id": {
+                      "value": 1
+                    },
+                    "name": {
+                      "value": "A user"
+                    },
+                    "email": {
+                      "value": "user@bob.com"
+                    }
+                  }
+                ],
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  },
+                  "example": [
+                    {
+                      "id": {
+                        "value": 1
+                      },
+                      "name": {
+                        "value": "A user"
+                      },
+                      "email": {
+                        "value": "user@bob.com"
+                      }
+                    }
+                  ],
+                  "type": "array"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauthSecurityAuthCode": [
+            ]
+          }
+        ],
+        "operationId": "getApiWhoIsThere",
+        "deprecated": false
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Message": {
+        "properties": {
+          "message": {
+            "example": "User is not inside building",
+            "type": "string"
+          }
+        },
+        "example": {
+          "message": "User is not inside building"
+        },
+        "type": "object",
+        "required": [
+          "message"
+        ]
+      },
+      "User": {
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "name": {
+            "$ref": "#/components/schemas/Username"
+          },
+          "email": {
+            "$ref": "#/components/schemas/EmailAddress"
+          }
+        },
+        "example": {
+          "id": {
+            "value": 1
+          },
+          "name": {
+            "value": "A user"
+          },
+          "email": {
+            "value": "user@bob.com"
+          }
+        },
+        "type": "object",
+        "required": [
+          "email",
+          "id",
+          "name"
+        ]
+      },
+      "Id": {
+        "properties": {
+          "value": {
+            "example": 1,
+            "type": "number"
+          }
+        },
+        "example": {
+          "value": 1
+        },
+        "type": "object",
+        "required": [
+          "value"
+        ]
+      },
+      "Username": {
+        "properties": {
+          "value": {
+            "example": "A user",
+            "type": "string"
+          }
+        },
+        "example": {
+          "value": "A user"
+        },
+        "type": "object",
+        "required": [
+          "value"
+        ]
+      },
+      "EmailAddress": {
+        "properties": {
+          "value": {
+            "example": "user@bob.com",
+            "type": "string"
+          }
+        },
+        "example": {
+          "value": "user@bob.com"
+        },
+        "type": "object",
+        "required": [
+          "value"
+        ]
+      }
+    },
+    "securitySchemes": {
+      "oauthSecurityAuthCode": {
+        "type": "oauth2",
+        "flows": {
+          "authorizationCode": {
+            "authorizationUrl": "http://oauth/",
+            "tokenUrl": "http://oauth/oauth2/token",
+            "scopes": {
+            }
+          }
+        }
+      }
+    }
+  },
+  "openapi": "3.0.0"
+}

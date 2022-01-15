@@ -11,7 +11,10 @@ allprojects {
     apply(plugin = "java")
     apply(plugin = "kotlin")
 
-}
-
-dependencies {
+    tasks {
+        named<Test>("test") {
+            useJUnitPlatform {
+            }
+        }
+    }
 }
