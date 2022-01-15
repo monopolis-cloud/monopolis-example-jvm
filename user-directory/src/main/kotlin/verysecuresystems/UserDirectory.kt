@@ -69,7 +69,9 @@ class UserDirectory(private val idGen: () -> Int = Random()::nextInt,
         "/user" bind GET to list(),
         "/user" bind POST to create(),
         "/user/{id}" bind DELETE to delete(),
-        "/user/{username}" bind GET to lookup()
+        "/user/{username}" bind GET to lookup(),
+        "/" bind GET to { Response(OK).body("user directory") }
+
     )
 
     override fun invoke(p1: Request) = app(p1)
