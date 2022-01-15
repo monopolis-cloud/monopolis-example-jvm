@@ -10,6 +10,18 @@ name: security-system-deploy
         description: Version of security-system to deploy.
         required: true
         type: string
+      entry-logger-sha:
+        description: Version of entry-logger to run downstream CDCs against.
+        required: false
+        type: string
+      sso-sha:
+        description: Version of sso to run downstream CDCs against.
+        required: false
+        type: string
+      user-directory-sha:
+        description: Version of user-directory to run downstream CDCs against.
+        required: false
+        type: string
       deployment-status-url:
         description: URL for status updates to be sent to.
         required: false
@@ -30,13 +42,41 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       if: ${{ github.event.inputs.deployment-status-url != null }}
     runs-on: ubuntu-latest
-  Deploy-security-system:
+  CDC-security-system-to-entry-logger:
     needs:
     - Start
     steps:
+    - run: echo run downstream CDCS here
+    runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.entry-logger-sha != null }}
+  CDC-security-system-to-sso:
+    needs:
+    - Start
+    steps:
+    - run: echo run downstream CDCS here
+    runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.sso-sha != null }}
+  CDC-security-system-to-user-directory:
+    needs:
+    - Start
+    steps:
+    - run: echo run downstream CDCS here
+    runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.user-directory-sha != null }}
+  Deploy-security-system:
+    needs:
+    - Start
+    - CDC-security-system-to-entry-logger
+    - CDC-security-system-to-sso
+    - CDC-security-system-to-user-directory
+    steps:
     - run: echo deploy security-system here
     runs-on: ubuntu-latest
-    if: ${{ always()  }}
+    if: ${{ always()  && (needs.CDC-security-system-to-entry-logger.result == 'skipped'
+      || needs.CDC-security-system-to-entry-logger.result == 'success') && (needs.CDC-security-system-to-sso.result
+      == 'skipped' || needs.CDC-security-system-to-sso.result == 'success') && (needs.CDC-security-system-to-user-directory.result
+      == 'skipped' || needs.CDC-security-system-to-user-directory.result == 'success')
+      }}
   End:
     needs:
     - Deploy-security-system

@@ -10,6 +10,10 @@ name: user-directory-deploy
         description: Version of user-directory to deploy.
         required: true
         type: string
+      security-system-sha:
+        description: Version of security-system to run upstream CDCs against.
+        required: false
+        type: string
       deployment-status-url:
         description: URL for status updates to be sent to.
         required: false
@@ -30,13 +34,22 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       if: ${{ github.event.inputs.deployment-status-url != null }}
     runs-on: ubuntu-latest
-  Deploy-user-directory:
+  CDC-security-system-to-user-directory:
     needs:
     - Start
     steps:
+    - run: echo run upstream CDCS here
+    runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.security-system-sha != null }}
+  Deploy-user-directory:
+    needs:
+    - Start
+    - CDC-security-system-to-user-directory
+    steps:
     - run: echo deploy user-directory here
     runs-on: ubuntu-latest
-    if: ${{ always()  }}
+    if: ${{ always()  && (needs.CDC-security-system-to-user-directory.result == 'skipped'
+      || needs.CDC-security-system-to-user-directory.result == 'success') }}
   End:
     needs:
     - Deploy-user-directory

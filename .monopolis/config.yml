@@ -15,6 +15,10 @@ monodes:
   security-system:
     extends:
       - .service
+    needs:
+      - entry-logger
+      - sso
+      - user-directory
     triggers:
       - security-system/**
   sso:
