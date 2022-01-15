@@ -42,6 +42,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event.inputs.security-system-sha != null }}
   Deploy-sso:
+    environment: production
     needs:
     - Start
     - CDC-security-system-to-sso

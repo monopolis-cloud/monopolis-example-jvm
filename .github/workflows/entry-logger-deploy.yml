@@ -42,11 +42,18 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event.inputs.security-system-sha != null }}
   Deploy-entry-logger:
+    environment: production
     needs:
     - Start
     - CDC-security-system-to-entry-logger
     steps:
-    - run: echo deploy entry-logger here
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: monopolis-entry-logger
+          heroku_email:  ${{secrets.HEROKU_EMAIL}}
+          procfile: "web: entry-logger/build/install/backend/bin/entry-logger $PORT"
     runs-on: ubuntu-latest
     if: ${{ always()  && (needs.CDC-security-system-to-entry-logger.result == 'skipped'
       || needs.CDC-security-system-to-entry-logger.result == 'success') }}
