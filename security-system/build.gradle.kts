@@ -1,6 +1,5 @@
 dependencies {
     api(project(":common"))
-    testFixtures(project(":common"))
 
     testApi(platform(Testing.Junit.bom))
     testApi(Testing.junit.jupiter.api)
