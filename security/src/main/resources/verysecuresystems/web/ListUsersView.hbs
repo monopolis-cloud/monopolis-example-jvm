@@ -1,0 +1,34 @@
+<html>
+<head>
+    <link href="/style.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<p>Known users are:</p>
+<table>
+    <tbody>
+    {{#users}}
+        <tr><td>{{name.value}}</td><td>{{email.value}}</td><td>
+            <form method="POST" id="deleteUserForm" action="/users/delete">
+                <input type="hidden" name="id" value="{{id.value}}"/>
+                <button>delete</button>
+            </form>
+        </td></tr>
+    {{/users}}
+    </tbody>
+</table>
+
+<br/>
+<b>Add a user:</b>
+<ul class="errors">
+    {{#errors}}
+        <li>{{.}}</li>
+    {{/errors}}
+</ul>
+<form method="POST" id="createUserForm" action="/users/create">
+    <label for="username">username: <input id="username" type="text" name="username"/></label>
+    <label for="email">email: <input id="email" type="text" name="email"/></label>
+    <button>add new user</button>
+</form>
+</body>
+</html>
+
