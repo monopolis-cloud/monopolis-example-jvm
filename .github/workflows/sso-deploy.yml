@@ -47,7 +47,13 @@ jobs:
     - Start
     - CDC-security-system-to-sso
     steps:
-    - run: echo deploy sso here
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: monopolis-security-system
+          heroku_email:  ${{secrets.HEROKU_EMAIL}}
+          procfile: "web: sso/build/install/sso/bin/sso $PORT"
     runs-on: ubuntu-latest
     if: ${{ always()  && (needs.CDC-security-system-to-sso.result == 'skipped' ||
       needs.CDC-security-system-to-sso.result == 'success') }}
