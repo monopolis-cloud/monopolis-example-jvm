@@ -42,7 +42,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event.inputs.security-system-sha != null }}
   Deploy-entry-logger:
-    environment: production
+    concurrency: production
     needs:
     - Start
     - CDC-security-system-to-entry-logger

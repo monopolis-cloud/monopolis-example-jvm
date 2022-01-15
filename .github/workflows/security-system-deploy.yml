@@ -64,7 +64,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event.inputs.user-directory-sha != null }}
   Deploy-security-system:
-    environment: production
+    concurrency: production
     needs:
     - Start
     - CDC-security-system-to-entry-logger
