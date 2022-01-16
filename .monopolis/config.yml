@@ -36,4 +36,4 @@ monodes:
 environments:
   production:
     deploy: auto
-    rollback: manual
+    rollback: auto
