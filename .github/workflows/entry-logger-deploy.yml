@@ -10,10 +10,6 @@ name: entry-logger-deploy
         description: Version of entry-logger to deploy.
         required: true
         type: string
-      security-system-sha:
-        description: Version of security-system to run upstream CDCs against.
-        required: false
-        type: string
       deployment-status-url:
         description: URL for status updates to be sent to.
         required: false
@@ -34,18 +30,9 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       if: ${{ github.event.inputs.deployment-status-url != null }}
     runs-on: ubuntu-latest
-  CDC-security-system-to-entry-logger:
-    needs:
-    - Start
-    steps:
-    - run: echo run upstream CDCS here
-    runs-on: ubuntu-latest
-    if: ${{ github.event.inputs.security-system-sha != null }}
   Deploy-entry-logger:
-    concurrency: production
     needs:
     - Start
-    - CDC-security-system-to-entry-logger
     steps:
       - uses: actions/checkout@v2
       - uses: akhileshns/heroku-deploy@v3.12.12
@@ -55,8 +42,7 @@ jobs:
           heroku_email:  ${{secrets.HEROKU_EMAIL}}
           procfile: "web: entry-logger/build/install/entry-logger/bin/entry-logger $PORT"
     runs-on: ubuntu-latest
-    if: ${{ always()  && (needs.CDC-security-system-to-entry-logger.result == 'skipped'
-      || needs.CDC-security-system-to-entry-logger.result == 'success') }}
+    if: ${{ always()  }}
   End:
     needs:
     - Deploy-entry-logger

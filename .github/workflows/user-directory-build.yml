@@ -4,7 +4,7 @@ name: user-directory
     paths:
     - user-directory/**
     - common/**
-    - "*.kts"
+    - '*.kts'
     - .monopolis/config.yml
     - .github/workflows/user-directory-build.yml
     - .github/workflows/user-directory-deploy.yml
@@ -13,7 +13,7 @@ jobs:
     needs: [
       ]
     steps:
-      - uses: actions/checkout@v2
+    - uses: actions/checkout@v2
       - uses: actions/setup-java@v1
         with:
           java-version: 11

@@ -3,15 +3,15 @@ name: common
   push:
     paths:
     - common/**
-    - "*.kts"
+    - '*.kts'
     - .monopolis/config.yml
-    - .github/workflows/app1-build.yml
+    - .github/workflows/common-build.yml
 jobs:
   Build:
     needs: [
       ]
     steps:
-      - uses: actions/checkout@v2
+    - uses: actions/checkout@v2
       - uses: actions/setup-java@v1
         with:
           java-version: 11
