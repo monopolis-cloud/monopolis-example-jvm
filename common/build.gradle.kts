@@ -9,7 +9,6 @@ dependencies {
     api(Http4k.server.undertow)
     api(Http4k.template.handlebars)
 
-
     testApi(platform(Testing.Junit.bom))
     testApi(Testing.junit.jupiter.api)
     testApi(Testing.junit.jupiter.engine)
