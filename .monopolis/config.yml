@@ -5,7 +5,7 @@ monodes:
       - common/**
       - "*.kts"
   .service:
-    deployable: true
+    type: service
     extends:
       - common
   entry-logger:
