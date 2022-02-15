@@ -4,15 +4,18 @@ monodes:
     triggers:
       - common/**
       - "*.kts"
+
   .service:
     type: service
     extends:
       - common
+
   entry-logger:
     extends:
       - .service
     triggers:
       - entry-logger/**
+
   security-system:
     extends:
       - .service
@@ -22,11 +25,13 @@ monodes:
       - user-directory
     triggers:
       - security-system/**
+
   sso:
     extends:
       - .service
     triggers:
       - sso/**
+
   user-directory:
     extends:
       - .service
