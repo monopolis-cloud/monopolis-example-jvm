@@ -2,42 +2,36 @@ version: 1.0
 monodes:
   common:
     triggers:
-      - common/**
-      - "*.kts"
-
+    - common/**
+    - '*.kts'
   .service:
     type: service
     extends:
-      - common
-
+    - common
   entry-logger:
     extends:
-      - .service
+    - .service
     triggers:
-      - entry-logger/**
-
+    - entry-logger/**
   security-system:
     extends:
-      - .service
+    - .service
     needs:
-      - entry-logger
-      - sso
-      - user-directory
+    - entry-logger
+    - sso
+    - user-directory
     triggers:
-      - security-system/**
-
+    - security-system/**
   sso:
     extends:
-      - .service
+    - .service
     triggers:
-      - sso/**
-
+    - sso/**
   user-directory:
     extends:
-      - .service
+    - .service
     triggers:
-      - user-directory/**
-
+    - user-directory/**
 environments:
   production:
     deploy: auto
