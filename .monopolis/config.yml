@@ -36,3 +36,4 @@ environments:
   production:
     deploy: auto
     rollback: manual
+
