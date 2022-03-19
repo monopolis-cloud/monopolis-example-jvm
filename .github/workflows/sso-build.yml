@@ -7,7 +7,6 @@ name: sso
     - '*.kts'
     - .monopolis/config.yml
     - .github/workflows/sso-build.yml
-    - .github/workflows/sso-deploy.yml
 jobs:
   Build:
     needs: [
