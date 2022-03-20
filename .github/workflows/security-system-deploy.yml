@@ -16,6 +16,7 @@ name: security-system-deploy
         type: string
 jobs:
   Start:
+    name: Start ${{ github.event.inputs.environment }}
     if: ${{ github.event.inputs.deployment_id != null }}
     runs-on: ubuntu-latest
     environment: ${{ github.event.inputs.environment }}
@@ -24,7 +25,7 @@ jobs:
     outputs:
       shas: ${{ steps.start_monode_deployment.outputs.environment_map }}
     steps:
-    - uses: monopolis-cloud/start-monode-deployment@v1.0.0
+    - uses: monopolis-cloud/start-monode-deployment@v2
       id: start_monode_deployment
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -43,12 +44,13 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ always()  }}
   End:
+    name: End ${{ github.event.inputs.environment }}
     if: ${{ always() }}
     runs-on: ubuntu-latest
     needs:
     - Deploy-security-system
     steps:
-    - uses: monopolis-cloud/finish-monode-deployment@v1.0.0
+    - uses: monopolis-cloud/finish-monode-deployment@v2
       with:
         status: ${{ needs.Deploy-security-system.result }}
       env:
