@@ -10,6 +10,7 @@ import org.http4k.core.cookie.invalidateCookie
 import org.http4k.security.AccessToken
 import org.http4k.security.CrossSiteRequestForgeryToken
 import org.http4k.security.Nonce
+import org.http4k.security.OAuthCallbackError
 import org.http4k.security.OAuthPersistence
 import org.http4k.security.openid.IdToken
 import java.time.Clock
@@ -28,6 +29,7 @@ class InMemoryOAuthPersistence(private val clock: Clock, private val tokenChecke
     override fun retrieveCsrf(request: Request) = request.cookie(csrfName)?.value?.let(::CrossSiteRequestForgeryToken)
 
     override fun retrieveNonce(request: Request): Nonce? = null
+
     override fun retrieveOriginalUri(request: Request): Uri? = request.cookie(originalUriName)?.value?.let(Uri::of)
 
     override fun retrieveToken(request: Request) = (tryBearerToken(request)
@@ -46,7 +48,8 @@ class InMemoryOAuthPersistence(private val clock: Clock, private val tokenChecke
             redirect.cookie(expiring(clientAuthCookie, it.toString())).invalidateCookie(csrfName)
         }
 
-    override fun authFailureResponse() = Response(FORBIDDEN).invalidateCookie(csrfName).invalidateCookie(clientAuthCookie)
+    override fun authFailureResponse(reason: OAuthCallbackError) = Response(FORBIDDEN)
+        .invalidateCookie(csrfName).invalidateCookie(clientAuthCookie)
 
     private fun tryCookieToken(request: Request) =
         request.cookie(clientAuthCookie)?.value?.let { cookieSwappableTokens[it] }

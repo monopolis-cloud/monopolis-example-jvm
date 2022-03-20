@@ -15,8 +15,8 @@ import org.http4k.lens.Query
 import org.http4k.routing.reverseProxy
 import org.http4k.security.AccessToken
 import org.http4k.testing.RecordingEvents
-import org.http4k.webdriver.By
 import org.http4k.webdriver.Http4kWebDriver
+import org.openqa.selenium.By
 import verysecuresystems.OAuthClientData
 import verysecuresystems.SSO
 import verysecuresystems.SecuritySystem
