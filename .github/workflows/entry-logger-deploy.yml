@@ -24,7 +24,7 @@ jobs:
     outputs:
       shas: ${{ steps.start_monode_deployment.outputs.environment_map }}
     steps:
-    - uses: monopolis-cloud/start-monode-deployment@v3
+    - uses: monopolis-cloud/start-monode-deployment@v2
       id: start_monode_deployment
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
